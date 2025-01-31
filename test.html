@@ -93,6 +93,7 @@
             document.body.style.backgroundColor = 'black'
             document.body.style.color = 'blue'
         }
+        document.getElementById('timer').innerHTML = 'Loading ...'
         // Fetch and import Data as 't' From the Backend of The Bell Timer v1 Google Sheet
         fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vS8EGwkTMFJvKzMEPVXAo-a_DvNwKw8v5ZCk7VEDCFcEEoZC9Q1FBL5UgXDycYO4LZ_CAogkuPXXo9V/pub?gid='+sheets[sch]+'&single=true&output=csv')
             .then(r => r.text()).then(t => t.split('\n')).then(t => {
