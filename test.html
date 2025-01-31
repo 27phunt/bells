@@ -30,8 +30,20 @@
         font-style: normal;
     }
 
+    h1.header {
+    line-height: 10px;
+      font-size: 3vw;
+      font-stretch: normal;
+      font-family: "Zain", serif;
+        font-weight: 700;
+        font-style: normal;
+    }
+
     hr {
         border: 2px solid auto
+    }
+    hr.dark {
+        color: blue;
     }
 
     button.hide {
@@ -45,8 +57,8 @@
 
     button.show {
       color: black;
-      background-color: white;
-      border: 1px solid black;
+      background-color: transparent;
+      border: 1px solid ;
       font-size: 5em;
       border-radius: 20px;
       cursor: pointer;
@@ -63,6 +75,10 @@
     }
   </style>
   <body onload="run()">
+    <div id="headerDiv">
+        <hr>
+        <h1 class="header" id="header">Loading ...</h1>
+    </div>
     <hr>
     <h1 class="timer" id="timer">Loading ...</h1>
     <hr>
@@ -92,7 +108,21 @@
     }
 
     function run() {
+        // Run the following if a theme has not been selected
+      if (!window.top.location.href.includes('darkmode=')) {
+        // Reveal the theme option buttons
+        document.getElementById('headerDiv').remove()
+        setButton(1, 'show', 'Light Mode', '?darkmode=false')
+        setButton(2, 'show', 'Dark Mode', '?darkmode=true')
+        // Change the 'timer' and 'label' elements to the following text
+        document.getElementById('timer').innerHTML = 'Bell Timer'
+        
+        // Stop the 'run()' function at this point
+        return
+      }
+
       if (sch == undefined) {
+        document.getElementById('headerDiv').remove()
         setButton(1, 'show', 'ES', '?sch=ES')
         setButton(2, 'show', 'MS', '?sch=MS')
         setButton(3, 'show', 'HS', '?sch=HS')
@@ -100,27 +130,17 @@
         document.getElementById('label').innerHTML = 'Select a Schedule'
         return
       }
-      // Run the following if a theme has not been selected
-      if (!window.top.location.href.includes('darkmode=')) {
-        // Reveal the theme option buttons
-        setButton(1, 'show', 'Light Mode', '&darkmode=false')
-        setButton(2, 'show', 'Dark Mode', '&darkmode=true')
-        // Change the 'timer' and 'label' elements to the following text
-        document.getElementById('timer').innerHTML = 'Bell Timer'
-        document.getElementById('label').innerHTML = {
-          'HS': 'High',
-          'MS': 'Middle',
-          'ES': 'Elementary'
-        } [sch] + ' School'
-        // Stop the 'run()' function at this point
-        return
-      }
-      // Run the following if dark mode is enabled
-      if (window.top.location.href.split('?')[1].includes('darkmode=true')) {
+            // Run the following if dark mode is enabled
+            if (window.top.location.href.split('?')[1].includes('darkmode=true')) {
         // Change the background color and font color
         document.body.style.backgroundColor = 'black'
         document.body.style.color = 'blue'
       }
+      document.getElementById('header').innerHTML = {
+          'HS': 'High',
+          'MS': 'Middle',
+          'ES': 'Elementary'
+        } [sch] + ' School Bell Timer'
       // Fetch and import Data as 't' From the Backend of The Bell Timer v1 Google Sheet
       fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vS8EGwkTMFJvKzMEPVXAo-a_DvNwKw8v5ZCk7VEDCFcEEoZC9Q1FBL5UgXDycYO4LZ_CAogkuPXXo9V/pub?gid=' + sheets[sch] + '&single=true&output=csv').then(r => r.text()).then(t => t.split('\n')).then(t => {
         // Search through the 't' (split by line) for the next bell
