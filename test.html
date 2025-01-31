@@ -108,31 +108,32 @@ border: solid auto;
     }
 
     function run() {
-        // Run the following if a theme has not been selected
-        if (!window.top.location.href.includes('darkmode=')) {
-            // Remove the header Div
-            document.getElementById('headerDiv').remove()
-            // Set the label text
-            document.getElementById('label').innerHTML = 'Select a Theme'
-            // Reveal Options
-            setButton(1, 'show', 'Light Mode', '?darkmode=false')
-            setButton(2, 'show', 'Dark Mode', '?darkmode=true')
-            // Change the 'timer' and 'label' elements to the following text
-            document.getElementById('timer').innerHTML = 'Bell Timer'
-            return
-        }
+
 
         // Run the following if 'sch=' parameter not defined
         if (sch == undefined) {
             // Remove the header Div
             document.getElementById('headerDiv').remove()
             // Reveal options
-            setButton(1, 'show', 'ES', '&sch=ES')
-            setButton(2, 'show', 'MS', '&sch=MS')
-            setButton(3, 'show', 'HS', '&sch=HS')
+            setButton(1, 'show', 'ES', '?sch=ES')
+            setButton(2, 'show', 'MS', '?sch=MS')
+            setButton(3, 'show', 'HS', '?sch=HS')
             // Set the 'timer' and 'label' text
             document.getElementById('timer').innerHTML = 'Bell Timer'
             document.getElementById('label').innerHTML = 'Select a Schedule'
+            return
+        }
+                // Run the following if a theme has not been selected
+                if (!window.top.location.href.includes('darkmode=')) {
+            // Remove the header Div
+            document.getElementById('headerDiv').remove()
+            // Set the label text
+            document.getElementById('label').innerHTML = 'Select a Theme'
+            // Reveal Options
+            setButton(1, 'show', 'Light Mode', '&darkmode=false')
+            setButton(2, 'show', 'Dark Mode', '&darkmode=true')
+            // Change the 'timer' and 'label' elements to the following text
+            document.getElementById('timer').innerHTML = 'Bell Timer'
             return
         }
         // Run the following if dark mode is enabled
