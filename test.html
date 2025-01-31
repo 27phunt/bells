@@ -48,11 +48,11 @@
    </style>
    <body onload="run()">
       <hr>
-      <h1 class="timer" id="timer"></h1>
+      <h1 class="timer" id="timer">Bell Timer</h1>
       <hr>
       <h1 class="label" id="label"></h1>
       <hr>
-        <span></span>
+        <span id="buttons"></span>
       <button id="b1" class="hide"></button>
       <button id="b2" class="hide"></button>
       <button id="b3" class="hide"></button>
@@ -63,7 +63,7 @@
     function setButton(x,Class,Text,parameters) {
         document.getElementById('b'+x).setAttribute('class',Class)
         document.getElementById('b'+x).onclick = 'window.top.location.href = '+ parameters
-        document.getElementById('b'+x).setAttribute('onclick','window.top.location.href = '+ parameters)
+        document.getElementById('b'+x).addEventListener('click',function(){window.top.location.href = window.top.location.href + parameters;},false)
         document.getElementById('b'+x).innerHTML = Text
     }
 
@@ -71,18 +71,18 @@
     const sheets = {'HS':'135452470', 'MS':'917992683', 'ES':'581887888' }
     function run() {
         if (sch == undefined) {
-    document.getElementById('buttons').insertAdjacentElement('beforeend',
-    '<button class="show" onclick="window.top.location.href = window.top.location.href + sch=ES">ES</button>')
+            setButton(1,'show','ES','?sch=ES')
+            setButton(2,'show','MS','?sch=MS')
+            setButton(3,'show','HS','?sch=HS')
+            document.getElementById('label').innerHTML = 'Select a Schedule'
+            return
         }
-
-
         // Run the following if a theme has not been selected
         if(!window.top.location.href.includes('darkmode=')) {
             // Reveal the theme option buttons
-            document.getElementById('blight').setAttribute('class','blight')
-            document.getElementById('bdark').setAttribute('class','bdark')
+            setButton(1,'blight','Light Mode','&darkmode=false')
+            setButton(2,'blight','Dark Mode','&darkmode=true')
             // Change the 'timer' and 'label' elements to the following text
-            document.getElementById('timer').innerHTML = 'Bell Timer'
             document.getElementById('label').innerHTML = {'HS':'High', 'MS':'Middle','ES':'Elementary'}[sch] + ' School'
             // Stop the 'run()' function at this point
             return
