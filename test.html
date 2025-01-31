@@ -107,6 +107,8 @@
   // Gets value from 'sch' parameter
   var sch = window.top.location.href.split('sch=')[1].substring(0, 2)
 
+  var Stop = false
+
   // Programs Buttons when called
   function setButton(x, Text, parameters) {
     document.getElementById('b' + x).setAttribute('class', 'show')
