@@ -107,6 +107,9 @@
   // Gets value from 'sch' parameter
   var sch = window.top.location.href.split('sch=')[1].substring(0, 2)
 
+  // Sets the Stop global variable to 'false' on page load
+  var Stop = false
+
   // Programs Buttons when called
   function setButton(x, Text, parameters) {
     document.getElementById('b' + x).setAttribute('class', 'show')
@@ -143,6 +146,8 @@
       // Set the 'timer' and 'label' text
       document.getElementById('timer').innerHTML = 'Bell Timer'
       document.getElementById('label').innerHTML = 'Select a Theme'
+      // Set the global 'Stop' variable to 'true'
+      window.Stop = true
       // Stop 'run()' function
       return
     }
@@ -175,6 +180,10 @@
 
   // Update 'Target' global variable every second
   setInterval(() => {
+    // Stop here until next loop if global var 'Stop' is 'true'
+    if (Stop) {
+      return
+    }
     // Fetch and import Data from the Google Sheet
     fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vS8EGwkTMFJvKzMEPVXAo-a_DvNwKw8v5ZCk7VEDCFcEEoZC9Q1FBL5UgXDycYO4LZ_CAogkuPXXo9V/pub?gid=' + sheets[sch] + '&single=true&output=csv').then(r => r.text()).then(t => t.split('\n')).then(t => {
       // Search through the 't' (fetch data split by line) for the next bell
