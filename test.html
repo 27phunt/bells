@@ -22,19 +22,6 @@
       background-color: transparent;
       border-color: transparent;
       }
-      button.bdark {
-      color: blue;
-      background-color: black;
-      font-size: 5em;
-      padding: 10px
-      }
-      button.blight {
-      color: black;
-      background-color: white;
-      border: 1px solid black;
-      font-size: 5em;
-      padding: 10px
-      }
       button.show {
       color: black;
       background-color: white;
@@ -80,8 +67,8 @@
         // Run the following if a theme has not been selected
         if(!window.top.location.href.includes('darkmode=')) {
             // Reveal the theme option buttons
-            setButton(1,'blight','Light Mode','&darkmode=false')
-            setButton(2,'blight','Dark Mode','&darkmode=true')
+            setButton(1,'show','Light Mode','&darkmode=false')
+            setButton(2,'show','Dark Mode','&darkmode=true')
             // Change the 'timer' and 'label' elements to the following text
             document.getElementById('label').innerHTML = {'HS':'High', 'MS':'Middle','ES':'Elementary'}[sch] + ' School'
             // Stop the 'run()' function at this point
@@ -131,7 +118,7 @@
         var seconds = Math.floor((distance % (1000 * 60)) / 1000) + 's'
         // Update the Timer Element
         document.getElementById("timer").innerHTML = hours + minutes + seconds
-        if (distance < 5 && window.top.location.pathname.includes('audio=true')) {
+        if (distance < 5 && window.top.location.href.includes('audio=true')) {
             // Play bell sound if parameters include 'audio=true'
             document.getElementById('audio').play()
         }
