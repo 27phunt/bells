@@ -146,6 +146,9 @@ border: solid auto;
         document.getElementById('header').innerHTML = {'HS': 'High',  'MS': 'Middle', 'ES': 'Elementary'} [sch] + ' School'
         // Remove bottom hr element
         document.getElementById('footerDiv').remove()
+      updateTarget()
+      }
+        function updateTarget() {
         // Fetch and import Data as 't' From the Backend of The Bell Timer v1 Google Sheet
         fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vS8EGwkTMFJvKzMEPVXAo-a_DvNwKw8v5ZCk7VEDCFcEEoZC9Q1FBL5UgXDycYO4LZ_CAogkuPXXo9V/pub?gid=' + sheets[sch] + '&single=true&output=csv').then(r => r.text()).then(t => t.split('\n')).then(t => {
             // Search through the 't' (split by line) for the next bell
@@ -185,14 +188,10 @@ border: solid auto;
             // Play bell sound if parameters include 'audio=true'
             document.getElementById('audio').play()
         }
-        if (distance < 1) {
-            // Get The Next Bell
-            run()
-        }
     }, 1000)
-    // Execute the 'run()' function every 10 seconds (in case of error)
+    // Execute the 'updateTarget()' function every second simultaneously the timer, to not cause delay
     setInterval(() => {
-        run()
-    }, 10000)
+      updateTarget()
+    }, 1000)
   </script>
 </html>
