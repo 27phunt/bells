@@ -1,0 +1,10 @@
+<script>    
+const onload = run('http://192.168.1.14')
+    function run(url) {
+if (window.top.location.href.split('?')[1] !== undefined) {
+    window.top.location.href = url + '?' + window.top.location.href.split('?')[1]
+} else {
+    window.top.location.href = url
+}    
+}
+</script>
